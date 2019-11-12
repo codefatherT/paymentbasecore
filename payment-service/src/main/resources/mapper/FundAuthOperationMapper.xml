@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoyang.service.pay.fundauth.dal.mapper.FundAuthOperationMapper">
+
+    <!--资金授权操作流水入库-->
+    <insert id="insertFundAuthOperationInfo"
+            parameterType="com.gaoyang.service.pay.fundauth.dal.dobj.FundAuthOperationDO">
+	  insert into fund_auth_operation_info(
+          fund_auth_no,
+          out_fund_auth_no,
+          operation_id,
+          out_operation_id,
+          amount
+	  )
+	  values
+	  (
+          #{fundAuthNo},
+          #{outFundAuthNo},
+          #{operationId},
+          #{outOperationId},
+          #{amount}
+	  )
+	</insert>
+
+    <!--资金授权操作流水更新 -->
+    <update id="updateFundAuthOperationInfo" parameterType="com.gaoyang.service.pay.fundauth.dal.dobj.FundAuthOperationDO">
+        update fund_auth_operation_info t
+        set out_fund_auth_no = #{outFundAuthNo},
+            out_operation_id = #{outOperationId},
+            operation_type = #{operationType},
+            total_freeze_amount =#{totalFreezeAmount},
+            total_unfreeze_amount =#{totalUnfreezeAmount},
+            total_pay_amount = #{totalPayAmount},
+            rest_amount = #{restAmount},
+            status = 1
+        where t.fund_auth_no = #{fundAuthNo}
+            AND t.operation_id = #{operationId}
+            AND t.record_status = 0
+    </update>
+
+</mapper>

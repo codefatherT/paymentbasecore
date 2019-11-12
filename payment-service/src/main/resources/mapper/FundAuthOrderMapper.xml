@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoyang.service.pay.fundauth.dal.mapper.FundAuthOrderMapper">
+
+    <!--资金授权订单入库-->
+    <insert id="insertFundAuthOrderInfo"
+            parameterType="com.gaoyang.service.pay.fundauth.dal.dobj.FundAuthOrderDO">
+	  insert into fund_auth_order_info(
+          fund_auth_no,
+          biz_order_no,
+          order_title,
+          payer_logon_id,
+          payer_user_id,
+          payee_logon_id,
+          payee_user_id,
+          pre_auth_type,
+          pay_platform
+	  )
+	  values
+	  (
+          #{fundAuthNo},
+          #{bizOrderNo},
+          #{orderTitle},
+          #{payerLogonId},
+          #{payerUserId},
+          #{payeeLogonId},
+          #{payeeUserId},
+          #{preAuthType},
+          #{payPlatform}
+	  )
+	</insert>
+
+    <!-- 资金授权订单更新-->
+    <update id="updateFundAuthOrderInfo"
+            parameterType="com.gaoyang.service.pay.fundauth.dal.dobj.FundAuthOrderDO">
+        update fund_auth_order_info t
+        set payer_logon_id = #{payerLogonId},
+            payer_user_id = #{payerUserId},
+            payee_logon_id = #{payeeLogonId},
+            payee_user_id = #{payeeUserId},
+            state = 1,
+            pre_auth_type = #{preAuthType}
+        where t.fund_auth_no = #{fundAuthNo}
+            AND t.record_status = 0
+    </update>
+
+</mapper>
